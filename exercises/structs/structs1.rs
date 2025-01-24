@@ -10,12 +10,12 @@ use std::arch::aarch64::{int32x2_t, int64x1_t};
 
 struct ColorClassicStruct {
     // TODO: Something goes here
-    red: int32x2_t,
-    green: int32x2_t,
-    blue: int32x2_t,
+    red: i32,
+    green: i32,
+    blue: i32,
 }
 
-struct ColorTupleStruct(int32x2_t, int32x2_t, int32x2_t);
+struct ColorTupleStruct(i32, i32, i32);
 
 #[derive(Debug)]
 struct UnitLikeStruct;
@@ -27,7 +27,11 @@ mod tests {
     #[test]
     fn classic_c_structs() {
         // TODO: Instantiate a classic c struct!
-        let green = ColorClassicStruct(0, 255, 0);
+        let green = ColorClassicStruct{
+            red: 0,
+            green: 255,
+            blue: 0 
+        };
 
         assert_eq!(green.red, 0);
         assert_eq!(green.green, 255);

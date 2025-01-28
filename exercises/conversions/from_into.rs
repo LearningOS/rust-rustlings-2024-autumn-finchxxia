@@ -40,10 +40,38 @@ impl Default for Person {
 // If while parsing the age, something goes wrong, then return the default of
 // Person Otherwise, then return an instantiated Person object with the results
 
-// I AM NOT DONE
 
 impl From<&str> for Person {
     fn from(s: &str) -> Person {
+        // 如果字符串为空，返回默认的 Person
+        if s.is_empty() {
+            return Person::default();
+        }
+
+        // 使用 split_once 分割字符串
+        let (name, age_str) = s.split_once(',').unwrap_or(("", ""));
+
+        // 如果名字为空，返回默认的 Person
+        if name.trim().is_empty() {
+            return Person::default();
+        }
+
+        // 尝试解析年龄，如果失败则返回默认的 Person
+        let age = match age_str.trim().parse::<usize>() {
+            Ok(x) if x < 150 && x > 0 => x,
+            _ => return Person::default()
+        };
+
+        // 检查年龄是否在合理范围内
+        if age > 150 {
+            return Person::default();
+        }
+
+        // 返回解析后的 Person 对象
+        Person {
+            name: name.trim().to_string(),
+            age,
+        }
     }
 }
 

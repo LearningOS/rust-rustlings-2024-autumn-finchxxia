@@ -34,9 +34,18 @@
 // Execute `rustlings hint tests7` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
 
-fn main() {}
+use core::time;
+
+fn main() {
+    // let timestamp = std::time::SystemTime::now()
+    // .duration_since(std::time::UNIX_EPOCH)
+    // .unwrap()
+    // .as_secs();
+
+    // let command = format!("rustc-env=TEST_FOO={}", timestamp);
+    // println!("cargo:{}", command);
+}
 
 #[cfg(test)]
 mod tests {
@@ -48,6 +57,7 @@ mod tests {
             .duration_since(std::time::UNIX_EPOCH)
             .unwrap()
             .as_secs();
+        
         let s = std::env::var("TEST_FOO").unwrap();
         let e: u64 = s.parse().unwrap();
         assert!(timestamp >= e && timestamp < e + 10);

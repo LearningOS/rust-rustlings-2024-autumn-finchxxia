@@ -2,11 +2,10 @@
 	single linked list merge
 	This problem requires you to merge two ordered singly linked lists into one ordered singly linked list
 */
-// I AM NOT DONE
 
 use std::fmt::{self, Display, Formatter};
 use std::ptr::NonNull;
-use std::vec::*;
+use std::{default, vec::*};
 
 #[derive(Debug)]
 struct Node<T> {
@@ -69,14 +68,41 @@ impl<T> LinkedList<T> {
             },
         }
     }
-	pub fn merge(list_a:LinkedList<T>,list_b:LinkedList<T>) -> Self
+	pub fn merge(mut list_a:LinkedList<T>,mut list_b:LinkedList<T>) -> Self where T: PartialOrd + Clone
 	{
 		//TODO
-		Self {
-            length: 0,
-            start: None,
-            end: None,
-        }
+        // let common = if list_a.length >= list_b.length {list_a.length} else {list_b.length};
+        // let lens = list_a.length + list_b.length;
+        let mut result = LinkedList::new();
+        let mut i = 0;
+        let mut j = 0;
+        let len_a = list_a.length as i32;
+        let len_b = list_b.length as i32;
+
+        
+        while i < len_a && j < len_b {
+            let a = list_a.get(i).unwrap();
+            let b = list_b.get(j).unwrap();
+            
+            if a <= b {
+                result.add(a.clone());
+                i += 1;
+            } else {
+                result.add(b.clone());
+                j += 1;
+            }
+        };
+        while i < len_a {
+            result.add(list_a.get(i).unwrap().clone());
+            i += 1;
+        };
+
+        while j < len_b {
+            result.add(list_b.get(j).unwrap().clone());
+            j += 1;
+        };
+    
+        result
 	}
 }
 
